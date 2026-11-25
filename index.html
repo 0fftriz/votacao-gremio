@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Votação do Grêmio Estudantil</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    defer>
+  </script>
+
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <header class="cabecalho">
+    <div>
+      <p class="subtitulo">SISTEMA ESCOLAR</p>
+      <h1>Votação Eletrônica</h1>
+      <p>Eleição do Grêmio Estudantil</p>
+    </div>
+  </header>
+
+  <main class="conteudo">
+
+    <!-- ÁREA ADMINISTRATIVA COMPACTA -->
+    <details class="administracao">
+      <summary>Área administrativa</summary>
+
+      <div class="admin-conteudo">
+        <div class="admin-login">
+          <div>
+            <label for="emailAdmin">E-mail administrativo</label>
+            <input
+              id="emailAdmin"
+              type="email"
+              autocomplete="username"
+              placeholder="E-mail">
+          </div>
+
+          <div>
+            <label for="senhaAdmin">Senha administrativa</label>
+            <input
+              id="senhaAdmin"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Senha">
+          </div>
+
+          <div class="acoes admin-acoes">
+            <button id="btnLogin" class="botao principal">
+              Entrar
+            </button>
+
+            <button id="btnLogout" class="botao secundario" hidden>
+              Sair
+            </button>
+          </div>
+        </div>
+
+        <p id="mensagemAdmin" class="mensagem"
+           role="status" aria-live="polite"></p>
+
+        <div id="controlesAdmin" hidden>
+          <p id="estadoAdmin"></p>
+
+          <div class="acoes">
+            <button id="btnIniciarUrna" class="botao confirmar">
+              Iniciar urna neste computador
+            </button>
+
+            <button id="btnEncerrar" class="botao corrigir">
+              Encerrar eleição
+            </button>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- NAVEGAÇÃO -->
+    <nav class="abas" aria-label="Navegação principal">
+      <button id="abaVotacao" class="aba ativa">
+        <span>01</span> Votação
+      </button>
+
+      <button id="abaResultados" class="aba">
+        <span>02</span> Resultados
+      </button>
+    </nav>
+
+    <!-- TELA DE VOTAÇÃO -->
+    <section id="telaVotacao">
+
+      <section id="urnaBloqueada" class="painel bloqueio">
+        <div class="icone-bloqueio">🔒</div>
+        <h2>Urna bloqueada</h2>
+        <p>
+          A votação ainda não foi autorizada neste computador.
+          O responsável deve acessar a área administrativa
+          e iniciar a urna.
+        </p>
+      </section>
+
+      <section id="urnaAtiva" hidden>
+
+        <!-- IDENTIFICAÇÃO -->
+        <section id="telaIdentificacao" class="painel identificacao">
+          <div class="titulo-painel">
+            <span class="etapa">ETAPA 1</span>
+            <h2>Identificação do eleitor</h2>
+          </div>
+
+          <label for="campoRA">Registro do Aluno (RA)</label>
+
+          <input
+            id="campoRA"
+            type="text"
+            autocomplete="off"
+            placeholder="Digite seu RA">
+
+          <button id="btnIniciarVoto" class="botao principal botao-grande">
+            Iniciar votação
+          </button>
+
+          <p id="mensagemIdentificacao" class="mensagem"></p>
+        </section>
+
+        <!-- TELA DA URNA -->
+        <section id="telaUrna" class="painel tela-urna" hidden>
+
+          <div class="titulo-painel">
+            <span class="etapa">ETAPA 2</span>
+            <h2>Escolha sua chapa</h2>
+          </div>
+
+          <div class="visor">
+            <p>Número da chapa</p>
+            <div id="numeroDigitado" class="numero">__</div>
+            <h3 id="nomeChapa">Aguardando escolha</h3>
+            <p id="detalhesChapa"></p>
+          </div>
+
+          <div class="area-teclado">
+            <div class="teclado">
+              <button class="tecla" data-numero="1">1</button>
+              <button class="tecla" data-numero="2">2</button>
+              <button class="tecla" data-numero="3">3</button>
+
+              <button class="tecla" data-numero="4">4</button>
+              <button class="tecla" data-numero="5">5</button>
+              <button class="tecla" data-numero="6">6</button>
+
+              <button class="tecla" data-numero="7">7</button>
+              <button class="tecla" data-numero="8">8</button>
+              <button class="tecla" data-numero="9">9</button>
+
+              <span></span>
+              <button class="tecla" data-numero="0">0</button>
+              <span></span>
+            </div>
+
+            <div class="acoes acoes-voto">
+              <button id="btnBranco" class="botao secundario">
+                BRANCO
+              </button>
+
+              <button id="btnCorrige" class="botao corrigir">
+                CORRIGE
+              </button>
+
+              <button id="btnConfirma" class="botao confirmar">
+                CONFIRMA
+              </button>
+            </div>
+          </div>
+
+          <p id="mensagemVoto" class="mensagem"
+             role="status" aria-live="polite"></p>
+
+             <button
+             id="btnOutroEleitor"
+                class="botao secundario botao-outro-eleitor"
+                type="button" hidden>
+                    VOLTAR PARA IDENTIFICAÇÃO / OUTRO ELEITOR
+            </button>
+        </section>
+
+        <!-- CONFIRMAÇÃO -->
+        <section id="telaFinal" class="painel tela-final" hidden>
+          <div class="icone-sucesso">✓</div>
+          <h2>Voto registrado!</h2>
+          <p>Obrigado por participar da eleição.</p>
+
+          <button id="btnProximo" class="botao principal botao-grande">
+            Próximo eleitor
+          </button>
+        </section>
+
+      </section>
+
+      <!-- CHAPAS PÚBLICAS -->
+      <section class="painel painel-chapas">
+        <div class="titulo-painel">
+          <span class="etapa">INFORMAÇÕES</span>
+          <h2>Chapas cadastradas</h2>
+        </div>
+
+        <p class="descricao">
+          Conheça as chapas participantes antes de votar.
+        </p>
+
+        <div id="listaChapasPublicas"></div>
+      </section>
+
+    </section>
+
+    <!-- TELA DE RESULTADOS -->
+    <section id="telaResultados" hidden>
+
+      <section class="painel resultados-intro">
+        <div class="titulo-painel">
+          <span class="etapa">APURAÇÃO</span>
+          <h2>Resultados da eleição</h2>
+        </div>
+
+        <p>
+          A apuração será disponibilizada depois
+          do encerramento da votação.
+        </p>
+
+        <button id="btnConsultarResultados" class="botao principal">
+          Consultar resultados
+        </button>
+
+        <p id="mensagemResultados" class="mensagem"
+           role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="painelResultados" class="painel" hidden>
+
+        <div class="resumo">
+          <article class="cartao">
+            <p>Total de votos</p>
+            <strong id="totalVotos">0</strong>
+          </article>
+
+          <article class="cartao">
+            <p>Votos em branco</p>
+            <strong id="totalBrancos">0</strong>
+          </article>
+        </div>
+
+        <h3>Resultado por chapa</h3>
+        <div id="listaResultados"></div>
+
+      </section>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    Sistema de votação eletrônica escolar.
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,506 @@
+/* =========================================
+   1. CONFIGURAÇÕES GERAIS
+========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --fundo: #fae2fe;
+  --branco: #d7bce8;
+  --texto: #263238;
+  --borda: #d8dee3;
+  --azul: #70254f;
+  --azul-escuro: hsl(323, 21%, 41%);
+  --verde: #4b1b53;
+  --vermelho: #6f4774;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--texto);
+  background: var(--fundo);
+  line-height: 1.4;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #7bb5e8;
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* =========================================
+   2. CABEÇALHO
+========================================= */
+
+.cabecalho {
+  padding: 12px 20px;
+  text-align: center;
+  color: white;
+  background: var(--azul-escuro);
+}
+
+.cabecalho h1 {
+  margin: 2px 0;
+  font-size: 1.65rem;
+}
+
+.cabecalho p {
+  margin: 2px 0;
+}
+
+.subtitulo {
+  font-size: 0.68rem;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+/* =========================================
+   3. CONTEÚDO PRINCIPAL
+========================================= */
+
+.conteudo {
+  width: min(100% - 28px, 1180px);
+  margin: 12px auto;
+}
+
+.painel {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--borda);
+  border-radius: 9px;
+  background: var(--branco);
+}
+
+.painel h2 {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+}
+
+.painel p {
+  margin: 5px 0;
+}
+
+/* =========================================
+   4. ÁREA ADMINISTRATIVA
+========================================= */
+
+.administracao {
+  margin-bottom: 10px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: white;
+}
+
+.administracao summary {
+  padding: 10px 14px;
+  color: var(--azul);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.admin-conteudo {
+  padding: 0 14px 12px;
+  border-top: 1px solid var(--borda);
+}
+
+.admin-login {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+label {
+  display: block;
+  margin: 8px 0 5px;
+  font-size: 0.88rem;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  min-width: 0;
+  padding: 9px;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+}
+
+.admin-acoes {
+  margin-top: 8px;
+}
+
+#controlesAdmin {
+  padding-top: 8px;
+}
+
+/* =========================================
+   5. BOTÕES
+========================================= */
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.botao,
+.aba {
+  padding: 9px 13px;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.botao:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.principal,
+.aba.ativa {
+  color: white;
+  background: var(--azul);
+}
+
+.confirmar {
+  color: white;
+  background: var(--verde);
+}
+
+.corrigir {
+  color: white;
+  background: var(--vermelho);
+}
+
+.secundario,
+.aba {
+  color: var(--texto);
+  background: #f0f2f4;
+}
+
+.botao-grande {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 10px;
+}
+
+/* =========================================
+   6. ABAS
+========================================= */
+
+.abas {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.aba {
+  flex: 1;
+  min-height: 42px;
+}
+
+.aba span {
+  margin-right: 5px;
+  opacity: 0.7;
+}
+
+/* =========================================
+   7. LAYOUT DA VOTAÇÃO
+========================================= */
+
+#telaVotacao:not([hidden]) {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
+  gap: 12px;
+  align-items: start;
+}
+
+#urnaAtiva:not([hidden]) {
+  display: contents;
+}
+
+.bloqueio {
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.icone-bloqueio {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.identificacao,
+.tela-urna,
+.tela-final {
+  min-width: 0;
+}
+
+.titulo-painel {
+  margin-bottom: 10px;
+}
+
+.titulo-painel h2 {
+  margin: 2px 0;
+}
+
+.etapa {
+  color: var(--azul);
+  font-size: 0.68rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.painel-chapas {
+  max-height: 490px;
+  overflow-y: auto;
+}
+
+.descricao {
+  color: #66737d;
+  font-size: 0.88rem;
+}
+
+/* =========================================
+   8. VISOR DA URNA
+========================================= */
+
+.visor {
+  min-height: 115px;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: #f7f9fa;
+  text-align: center;
+}
+
+.visor p {
+  font-size: 0.85rem;
+}
+
+.numero {
+  min-height: 42px;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 7px;
+}
+
+.visor h3 {
+  margin: 4px 0;
+  font-size: 1rem;
+}
+
+#detalhesChapa {
+  white-space: pre-line;
+  font-size: 0.78rem;
+}
+
+/* =========================================
+   9. TECLADO NUMÉRICO
+========================================= */
+
+.area-teclado {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(110px, 0.75fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.teclado {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.tecla {
+  min-height: 43px;
+  border: 1px solid #aeb8c1;
+  border-radius: 6px;
+  background: #f0f2f4;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.tecla:hover {
+  background: #e1e7ec;
+}
+
+.acoes-voto {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+}
+
+.acoes-voto .botao {
+  min-height: 43px;
+}
+
+/* =========================================
+   10. MENSAGENS E CONFIRMAÇÃO
+========================================= */
+
+.mensagem {
+  min-height: 18px;
+  margin: 6px 0;
+  font-size: 0.85rem;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.tela-final {
+  text-align: center;
+  padding: 28px 16px;
+}
+
+.icone-sucesso {
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  background: var(--verde);
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+/* =========================================
+   11. RESULTADOS
+========================================= */
+
+.resultados-intro {
+  margin-bottom: 12px;
+}
+
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.cartao,
+.resultado-item {
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: #f7f9fa;
+}
+
+.cartao strong {
+  font-size: 1.8rem;
+}
+
+.resultado-item {
+  margin: 8px 0;
+}
+
+.barra-fundo {
+  height: 10px;
+  margin-top: 8px;
+  border-radius: 20px;
+  background: #e1e5e9;
+  overflow: hidden;
+}
+
+.barra-preenchida {
+  height: 100%;
+  background: var(--azul);
+}
+
+/* =========================================
+   12. RODAPÉ
+========================================= */
+
+.rodape {
+  padding: 10px;
+  text-align: center;
+  color: #5f6b73;
+  font-size: 0.78rem;
+}
+
+/* =========================================
+   13. TELAS MENORES
+========================================= */
+
+@media (max-width: 760px) {
+
+  #telaVotacao:not([hidden]) {
+    grid-template-columns: 1fr;
+  }
+
+  .painel-chapas {
+    max-height: 260px;
+  }
+
+  .admin-login {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .area-teclado {
+    grid-template-columns: 1fr;
+  }
+
+  .acoes-voto {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .acoes-voto .botao {
+    padding: 9px 5px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 420px) {
+
+  .conteudo {
+    width: calc(100% - 16px);
+    margin: 8px auto;
+  }
+
+  .cabecalho h1 {
+    font-size: 1.35rem;
+  }
+
+  .painel {
+    padding: 11px;
+  }
+
+  .resumo {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cartao strong {
+    font-size: 1.4rem;
+  }
+}
+
+.botao-outro-eleitor {
+  width: 100%;
+  margin-top: 8px;
+}
